@@ -1,0 +1,11 @@
+{
+  "/api": {
+    "target": "https://wiki-sujeetjaiswal-com.web.app/api",
+    "secure": false,
+    "pathRewrite": {
+      "^/api": ""
+    },
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}
