@@ -1,0 +1,82 @@
+<mat-toolbar color="primary">
+  <a mat-button routerLink="/home">
+    <span>Wiki</span>
+  </a>
+  <span class="spacer"></span>
+  <ng-container *ngIf="activePref">
+    <button mat-icon-button aria-label="Toggle Dark Mode" (click)="toggleDarkMode()">
+      <mat-icon>{{activePref.isDarkMode ? 'brightness_low' : 'brightness_high'}}</mat-icon>
+    </button>
+    <button mat-icon-button aria-label="Toggle Content Direction" (click)="toggleContentDir()">
+      <mat-icon>{{activePref.direction === 'rtl' ? 'format_textdirection_l_to_r' : 'format_textdirection_r_to_l'}}
+      </mat-icon>
+    </button>
+  </ng-container>
+
+  <button mat-icon-button [matMenuTriggerFor]="themeMenu" aria-label="Theme Change Menu">
+    <mat-icon>format_color_fill</mat-icon>
+  </button>
+
+  <button mat-icon-button [matMenuTriggerFor]="fontMenu" aria-label="Font Change Menu">
+    <mat-icon>text_fields</mat-icon>
+  </button>
+  <button mat-icon-button [matMenuTriggerFor]="profileMenu" aria-label="Profile Menu">
+    <mat-icon *ngIf="!user?.photoURL">account_circle</mat-icon>
+    <img class="profile-icon" *ngIf="user?.photoURL" [src]="user?.photoURL">
+  </button>
+</mat-toolbar>
+
+<mat-menu #themeMenu="matMenu">
+  <button mat-menu-item *ngFor="let theme of themes" (click)="updateTheme(theme)">
+    <span class="adjust-on-dir">
+      <mat-icon>
+        {{theme.themeClass === activePref?.theme.themeClass ? 'radio_button_checked' : 'radio_button_unchecked'}}
+      </mat-icon>
+      <span>{{theme.themeName}}</span>
+    </span>
+  </button>
+</mat-menu>
+
+<mat-menu #fontMenu="matMenu">
+  <button mat-menu-item *ngFor="let font of fonts" (click)="updateFont(font)">
+    <span class="adjust-on-dir">
+      <mat-icon>
+        {{font.fontClass === activePref?.font.fontClass ? 'radio_button_checked' : 'radio_button_unchecked'}}
+      </mat-icon>
+      <span [ngStyle]="{'font-size': font.fontSize + 'px'}">{{font.fontText}}</span>
+    </span>
+  </button>
+</mat-menu>
+
+<mat-menu #profileMenu="matMenu">
+  <section class="profile-container">
+    <!-- Logged In User -->
+    <div *ngIf="user" class="logged-in">
+      <img class="profile-img" [src]="user?.photoURL">
+      <div class="profile-info">
+        <h4 class="profile-text">{{user?.displayName}}</h4>
+        <p class="profile-text">{{user?.email || user?.uid}}</p>
+      </div>
+    </div>
+    <!-- User Not Logged In -->
+    <div *ngIf="!user" class="not-logged-in">
+      You are not logged In
+    </div>
+    <!-- Action Bar -->
+    <div class="profile-action-bar">
+      <a mat-button routerLink="/about">
+        <mat-icon>info</mat-icon>
+        About
+      </a>
+      <a *ngIf="!user" mat-button routerLink="/">
+        <mat-icon>input</mat-icon>
+        Login
+      </a>
+      <button *ngIf="user" mat-button (click)="logout()">
+        <mat-icon>power_settings_new</mat-icon>
+        Logout
+      </button>
+    </div>
+  </section>
+
+</mat-menu>

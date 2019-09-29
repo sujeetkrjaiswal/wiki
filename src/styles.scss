@@ -1,1 +1,113 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Theme related
+.theme-blue {
+  $primary: mat-palette($mat-blue);
+  $accent: mat-palette($mat-pink, A200, A100, A400);
+  &.day-mode {
+    $theme: mat-light-theme($primary, $accent);
+    @include angular-material-theme($theme);
+  }
+  &.night-mode {
+    $theme: mat-dark-theme($primary, $accent);
+    @include angular-material-theme($theme);
+  }
+}
+.theme-indigo {
+  $primary: mat-palette($mat-indigo);
+  $accent: mat-palette($mat-pink, A200, A100, A400);
+  &.day-mode {
+    $theme: mat-light-theme($primary, $accent);
+    @include angular-material-theme($theme);
+  }
+  &.night-mode {
+    $theme: mat-dark-theme($primary, $accent);
+    @include angular-material-theme($theme);
+  }
+}
+.theme-purple {
+  $primary: mat-palette($mat-purple);
+  $accent: mat-palette($mat-pink, A200, A100, A400);
+  &.day-mode {
+    $theme: mat-light-theme($primary, $accent);
+    @include angular-material-theme($theme);
+  }
+  &.night-mode {
+    $theme: mat-dark-theme($primary, $accent);
+    @include angular-material-theme($theme);
+  }
+}
+
+// typography related
+@function mul-with-14($actual, $base) {
+  @return $actual*$base/14px;
+}
+@function mat-typography-level-with-base($a, $b, $c, $base) {
+  @return mat-typography-level(mul-with-14($a, $base), mul-with-14($b, $base),  $c);
+}
+
+@function mat-typography-config-with-base($base) {
+  $s112: mul-with-14(112px, $base);
+  $s56: mul-with-14(56px, $base);
+  $s48: mul-with-14(48px, $base);
+  $s45: mul-with-14(45px, $base);
+  @return mat-typography-config(
+    $font-family:   'Roboto, "Helvetica Neue", sans-serif',
+    $display-4:     mat-typography-level($s112, $s112, 300, $letter-spacing: -0.05em),
+    $display-3:     mat-typography-level($s56, $s56, 400, $letter-spacing: -0.02em),
+    $display-2:     mat-typography-level($s45, $s48, 400, $letter-spacing: -0.005em),
+    $display-1:     mat-typography-level-with-base(34px, 40px, 400, $base),
+    $headline:      mat-typography-level-with-base(24px, 32px, 400, $base),
+    $title:         mat-typography-level-with-base(20px, 32px, 500, $base),
+    $subheading-2:  mat-typography-level-with-base(16px, 28px, 400, $base),
+    $subheading-1:  mat-typography-level-with-base(15px, 24px, 400, $base),
+    $body-2:        mat-typography-level-with-base(14px, 24px, 500, $base),
+    $body-1:        mat-typography-level-with-base(14px, 20px, 400, $base),
+    $caption:       mat-typography-level-with-base(12px, 20px, 400, $base),
+    $button:        mat-typography-level-with-base(14px, 14px, 500, $base),
+    // Line-height must be unit-less fraction of the font-size.
+    $input:         mat-typography-level(inherit, 1.125, 400)
+  );
+}
+
+.font-xs {
+  $typography: mat-typography-config-with-base(10px);
+  @include angular-material-typography($typography);
+}
+.font-s {
+  $typography: mat-typography-config-with-base(12px);;
+  @include angular-material-typography($typography);
+}
+.font-n {
+  $typography: mat-typography-config();
+  @include angular-material-typography($typography);
+}
+.font-l {
+  $typography: mat-typography-config-with-base(16px);;
+  @include angular-material-typography($typography);
+}
+.font-xl {
+  $typography: mat-typography-config-with-base(18px);
+  @include angular-material-typography($typography);
+}
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+// Content Direction Changes
+[dir=rtl] .adjust-on-dir {
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+}

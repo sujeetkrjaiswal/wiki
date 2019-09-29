@@ -1,0 +1,44 @@
+.spacer {
+  flex: 1 1 auto;
+}
+.profile-icon {
+  $size:32px;
+  width: $size;
+  height: $size;
+  border-radius: 50%;
+
+}
+
+.profile-container {
+  $size: 8px;
+  .logged-in {
+    display: flex;
+    flex-wrap: wrap;
+    padding: $size;
+    .profile-img {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+    }
+    .profile-info {
+      padding: 0 $size;
+      box-sizing: border-box;
+      width: calc(100% - 64px);
+      .profile-text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-bottom: 4px;
+      }
+    }
+  }
+  .not-logged-in {
+    padding: $size 3*$size;
+  }
+  .profile-action-bar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 8px;
+    box-sizing: border-box;
+  }
+}
