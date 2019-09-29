@@ -9,8 +9,30 @@
 // Be sure that you only ever include this mixin once!
 @include mat-core();
 @mixin wiki-content($theme) {
-  $primary: map-get($map: $theme, $key: primary);
-  $accent: map-get($map: $theme, $key: $accent);
+  $is-dark-theme: map-get($theme, is-dark);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+
+  $primaryMain: mat-color($primary, default);
+  $primaryLight: mat-color($primary, lighter);
+  $primaryDark: mat-color($primary, darker);
+  $primaryText: mat-color($primary, text);
+  $secondaryText: mat-color($foreground, secondary-text);
+
+  .__content_renderer__ {
+    h1, h2, h3, h4, h5, h6, a {
+      @if $is-dark-theme {
+        color: $primaryLight;
+      } @else {
+        color: $primaryDark;
+      }
+    }
+
+  }
+
 
 }
 $font-family-wiki: 'Open Sans', 'Roboto', 'Helvetica Neue', 'sans-serif';
@@ -21,10 +43,12 @@ $font-family-wiki: 'Open Sans', 'Roboto', 'Helvetica Neue', 'sans-serif';
   &.day-mode {
     $theme: mat-light-theme($primary, $accent);
     @include angular-material-theme($theme);
+    @include wiki-content($theme);
   }
   &.night-mode {
     $theme: mat-dark-theme($primary, $accent);
     @include angular-material-theme($theme);
+    @include wiki-content($theme);
   }
 }
 .theme-indigo {
@@ -33,10 +57,12 @@ $font-family-wiki: 'Open Sans', 'Roboto', 'Helvetica Neue', 'sans-serif';
   &.day-mode {
     $theme: mat-light-theme($primary, $accent);
     @include angular-material-theme($theme);
+    @include wiki-content($theme);
   }
   &.night-mode {
     $theme: mat-dark-theme($primary, $accent);
     @include angular-material-theme($theme);
+    @include wiki-content($theme);
   }
 }
 .theme-purple {
@@ -45,10 +71,12 @@ $font-family-wiki: 'Open Sans', 'Roboto', 'Helvetica Neue', 'sans-serif';
   &.day-mode {
     $theme: mat-light-theme($primary, $accent);
     @include angular-material-theme($theme);
+    @include wiki-content($theme);
   }
   &.night-mode {
     $theme: mat-dark-theme($primary, $accent);
     @include angular-material-theme($theme);
+    @include wiki-content($theme);
   }
 }
 

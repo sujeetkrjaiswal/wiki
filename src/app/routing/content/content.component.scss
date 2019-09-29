@@ -66,8 +66,6 @@
 
   a {
     text-decoration: none;
-    color:inherit;
-    border-bottom: 1px dotted;
   }
 
   .hlist {
@@ -85,4 +83,29 @@
       word-spacing: -0.125em;
     }
   }
+
+  .vertical-navbox {
+    background: inherit !important;
+  }
+
+  .gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    margin: 2px;
+    padding: 2px;
+    list-style-type: none;
+
+    .gallerybox {
+      display: inline-block;
+      padding: 8px;
+      margin: 8px;
+      border: 1px dotted;
+      .thumb {
+        text-align: center;
+      }
+    }
+  }
+
 }

@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.authSub = this.auth.authState.pipe(
       filter(user => !!user)
     ).subscribe(user => {
+      console.log('logi user', user);
       this.route.navigateByUrl('/home');
     });
   }
