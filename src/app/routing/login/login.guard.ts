@@ -13,7 +13,7 @@ export class LoginGuard implements CanActivate {
   ) { }
   async canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    state: RouterStateSnapshot): Promise<boolean | UrlTree> {
     const authState = await this.auth.authState.pipe(first(), map(Boolean)).toPromise();
     if (authState) {
       return this.router.parseUrl('/home');
