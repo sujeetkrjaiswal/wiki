@@ -19,7 +19,7 @@
       "es2018",
       "dom"
     ],
-    "strictNullChecks": true
+    "strictNullChecks": false
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
