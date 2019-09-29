@@ -1,1 +1,12 @@
-<p>home works!</p>
+<form class="wiki-autocomplete">
+  <mat-form-field class="">
+    <input matInput placeholder="Search any topic" aria-label="Search any topic" [matAutocomplete]="auto"
+      [formControl]="searchControl">
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="select($event)">
+      <mat-option *ngFor="let article of articles$ | async" [value]="article?.url">
+        <span>{{article?.title}}</span> |
+        <small>Population: {{article?.description}}</small>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>

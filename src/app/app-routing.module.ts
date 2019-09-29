@@ -17,6 +17,7 @@ import { AboutComponent } from './routing/about/about.component';
 import { ProfileModule } from './routing/profile/profile.module';
 import { ProfileComponent } from './routing/profile/profile.component';
 import { LoggedInGuard } from 'ngx-auth-firebaseui';
+import { ContentResolver } from './routing/content/content.resolver';
 
 
 const routes: Routes = [{
@@ -28,8 +29,11 @@ const routes: Routes = [{
   path: 'home',
   component: HomeComponent
 }, {
-  path: 'content/:contentId',
-  component: ContentComponent
+  path: 'wiki/:wikiId',
+  component: ContentComponent,
+  resolve: {
+    content: ContentResolver
+  }
 }, {
   path: 'about',
   component: AboutComponent

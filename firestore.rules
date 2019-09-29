@@ -1,15 +1,36 @@
 service cloud.firestore {
   match /databases/{database}/documents {
-  	match /users/{user} {
-    	allow read;
-      allow write: if request.auth.uid == user
+    function isAuthenticated() {
+      return request.auth.uid != null;
     }
-    match /perferences/{user} {
+    function isYou(userId) {
+      return request.auth.uid == userId;
+    }
+  	match /users/{userId} {
     	allow read;
-      allow write: if request.auth.uid == user
+      allow write: if isAuthenticated() && isYou(userId);
+    }
+    match /preferences/{userId} {
+    	allow read;
+      allow write: if isAuthenticated() && isYou(userId);
+    }
+    match /entries/{entryId}/comments/{commentId} {
+      function validComment() {
+        return isYou(request.resource.data.userId) &&
+        request.resource.data.comment is string &&
+        request.resource.data.comment.size() > 10 &&
+        request.resource.data.comment.size() < 2000 &&
+        request.resource.data.addedOn is timestamp;
+      }
+
+      allow read;
+      allow create: if isAuthenticated() && validComment();
+      allow update: if isAuthenticated() && validComment() && isYou(resource.data.userId);
+      allow delete: if isYourComment()
     }
     match /{document=**} {
-      allow read, write: if request.auth.uid != null;
+      allow read;
+      allow write: if false;
     }
   }
 }

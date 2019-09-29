@@ -1,1 +1,15 @@
-<p>content works!</p>
+<mat-toolbar>
+  <button mat-icon-button (click)="tocOpened = !tocOpened">
+    <mat-icon>menu</mat-icon>
+  </button>
+  {{title}}
+</mat-toolbar>
+
+<mat-sidenav-container class="__content_renderer__">
+  <mat-sidenav mode="side" [(opened)]="tocOpened">
+    <section #tocPlaceholder class="toc-placeholder"></section>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <section #htmlPlaceholder class="html-placeholder"></section>
+  </mat-sidenav-content>
+</mat-sidenav-container>

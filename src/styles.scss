@@ -8,7 +8,12 @@
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
 @include mat-core();
+@mixin wiki-content($theme) {
+  $primary: map-get($map: $theme, $key: primary);
+  $accent: map-get($map: $theme, $key: $accent);
 
+}
+$font-family-wiki: 'Open Sans', 'Roboto', 'Helvetica Neue', 'sans-serif';
 // Theme related
 .theme-blue {
   $primary: mat-palette($mat-blue);
@@ -61,7 +66,7 @@
   $s48: mul-with-14(48px, $base);
   $s45: mul-with-14(45px, $base);
   @return mat-typography-config(
-    $font-family:   'Roboto, "Helvetica Neue", sans-serif',
+    $font-family:   $font-family-wiki,
     $display-4:     mat-typography-level($s112, $s112, 300, $letter-spacing: -0.05em),
     $display-3:     mat-typography-level($s56, $s56, 400, $letter-spacing: -0.02em),
     $display-2:     mat-typography-level($s45, $s48, 400, $letter-spacing: -0.005em),
@@ -88,7 +93,7 @@
   @include angular-material-typography($typography);
 }
 .font-n {
-  $typography: mat-typography-config();
+  $typography: mat-typography-config-with-base(14px);
   @include angular-material-typography($typography);
 }
 .font-l {
@@ -102,7 +107,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: $font-family-wiki; }
 
 
 // Content Direction Changes

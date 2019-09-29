@@ -1,0 +1,88 @@
+
+%onside {
+  border-width: 1px;
+  padding: 8px;
+  border-style: dotted;
+  margin-top: 4px;
+  margin-bottom: 16px;
+}
+
+.__content_renderer__ {
+  padding: 16px;
+  text-align: justify;
+
+  .toc-placeholder {
+    width: 300px;
+    padding-right: 16px;
+    box-sizing: border-box;
+
+    ul {
+      list-style: disc;
+      padding-inline-start: 16px;
+      ul {
+        list-style: circle;
+        ul {
+          list-style: square;
+        }
+      }
+    }
+  }
+  .html-placeholder {
+    padding-left: 16px;
+  }
+
+  h1,h2 {
+    margin-top: 16px;
+  }
+  .mw-editsection, .reference, .navbox, .noprint, .reflist, #References, #External_links {
+    display: none;
+  }
+  .tright,
+  .floatright {
+    @extend %onside;
+    float: right;
+    clear: right;
+    margin-left: 24px;
+    margin-right: 0px;
+  }
+  .tleft,
+  .floatleft {
+    @extend %onside;
+    float: left;
+    clear: left;
+    margin-left: 0px;
+    margin-right: 24px;
+  }
+  .infobox.vevent {
+    @extend %onside;
+    float: right;
+    clear: right;
+    margin-left: 24px;
+    margin-right: 0px;
+  }
+  .div-col {
+    margin-bottom: 24px;
+  }
+
+  a {
+    text-decoration: none;
+    color:inherit;
+    border-bottom: 1px dotted;
+  }
+
+  .hlist {
+    dd, dt, li {
+      margin: 0;
+      display: inline;
+    }
+
+  }
+  .navbar {
+    display: inline;
+    font-size: 88%;
+    font-weight: normal;
+    li{
+      word-spacing: -0.125em;
+    }
+  }
+}

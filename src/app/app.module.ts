@@ -9,6 +9,7 @@ import { CoreModule } from './core/core.module';
 import { InitService } from './services/init.service';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { NgMaterialModule } from './common/ng-material.module';
+import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -18,6 +19,8 @@ import { NgMaterialModule } from './common/ng-material.module';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
+    HttpClientJsonpModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     CoreModule,

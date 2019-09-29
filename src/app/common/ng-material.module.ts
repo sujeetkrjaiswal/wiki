@@ -15,14 +15,14 @@ import {
     MatButtonModule,
     MatIconModule,
     MatToolbarModule,
-    MatMenuModule
+    MatMenuModule,
   ],
   imports: [
     CommonModule,
     MatButtonModule,
     MatIconModule,
     MatToolbarModule,
-    MatMenuModule
+    MatMenuModule,
   ]
 })
 export class NgMaterialModule { }

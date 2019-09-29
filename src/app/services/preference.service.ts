@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { PreferenceSyncService } from './preference-sync.service';
 import { IActivePreference, IPreferenceOptions, ITheme, IFont } from './preference.model';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 
 @Injectable({
@@ -9,9 +10,9 @@ import { IActivePreference, IPreferenceOptions, ITheme, IFont } from './preferen
 export class PreferenceService {
   private activePref: IActivePreference;
   private prefOptions: IPreferenceOptions;
-  private elem = document.body;
+  private elem = document.querySelector('html');
   constructor(
-    private sync: PreferenceSyncService
+    private sync: PreferenceSyncService,
   ) {
     this.sync.prefChanged.subscribe(pref => {
       this.updatePref(pref, false);
@@ -24,11 +25,9 @@ export class PreferenceService {
   get options(): IPreferenceOptions {
     return this.prefOptions;
   }
-  init(prefOptions: IPreferenceOptions, activePref?: IActivePreference) {
-    console.log('Preference Initialized');
+  init(prefOptions: IPreferenceOptions, activePref?: IActivePreference, sync: boolean = true) {
     this.prefOptions = prefOptions;
-    this.updatePref(activePref, true);
-    // this.activePref = activePref;
+    this.updatePref(activePref, sync);
   }
   updatePref(partialPref: Partial<IActivePreference> = this.defaultActivePref, sync = true) {
     if (!this.prefOptions) { return; }
