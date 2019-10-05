@@ -31,7 +31,7 @@ const firebaseUIConfig: NgxAuthFirebaseUIConfig = {
     AngularFireStorageModule,
     NgxAuthFirebaseUIModule.forRoot(
       environment.firebaseConfig,
-      () => 'Wiki App',
+      undefined,
       firebaseUIConfig
       )
   ],
