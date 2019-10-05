@@ -5,6 +5,7 @@ import {
   MatIconModule,
   MatToolbarModule,
   MatMenuModule,
+  MatInputModule,
 } from '@angular/material';
 
 
@@ -16,6 +17,7 @@ import {
     MatIconModule,
     MatToolbarModule,
     MatMenuModule,
+    MatInputModule,
   ],
   imports: [
     CommonModule,

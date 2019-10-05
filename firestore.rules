@@ -14,18 +14,24 @@ service cloud.firestore {
     	allow read;
       allow write: if isAuthenticated() && isYou(userId);
     }
-    match /entries/{entryId}/comments/{commentId} {
+    match /comments/{commentId} {
       function validComment() {
-        return isYou(request.resource.data.userId) &&
+        return isYou(request.resource.data.commentorId) &&
+        request.resource.data.commentorId is string &&
+        request.resource.data.commentorName is string &&
+        request.resource.data.commentorPhoto is string &&
         request.resource.data.comment is string &&
         request.resource.data.comment.size() > 10 &&
         request.resource.data.comment.size() < 2000 &&
-        request.resource.data.addedOn is timestamp;
+        request.resource.data.commentedOn is timestamp &&
+        request.resource.data.lastUpdatedOn is timestamp &&
+        request.resource.data.entryAssociatedWith is string &&
+        request.resource.data.parentComment is string;
       }
 
       allow read;
       allow create: if isAuthenticated() && validComment();
-      allow update: if isAuthenticated() && validComment() && isYou(resource.data.userId);
+      allow update: if isAuthenticated() && validComment() && isYou(resource.data.commentorId);
       allow delete: if isYourComment()
     }
     match /{document=**} {

@@ -1,7 +1,6 @@
-
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
-@import '~@angular/material/theming';
+@import "~@angular/material/theming";
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -23,19 +22,22 @@
   $secondaryText: mat-color($foreground, secondary-text);
 
   .__content_renderer__ {
-    h1, h2, h3, h4, h5, h6, a {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    a {
       @if $is-dark-theme {
         color: $primaryLight;
       } @else {
         color: $primaryDark;
       }
     }
-
   }
-
-
 }
-$font-family-wiki: 'Open Sans', 'Roboto', 'Helvetica Neue', 'sans-serif';
+$font-family-wiki: "Open Sans", "Roboto", "Helvetica Neue", "sans-serif";
 // Theme related
 .theme-blue {
   $primary: mat-palette($mat-blue);
@@ -82,10 +84,14 @@ $font-family-wiki: 'Open Sans', 'Roboto', 'Helvetica Neue', 'sans-serif';
 
 // typography related
 @function mul-with-14($actual, $base) {
-  @return $actual*$base/14px;
+  @return $actual * $base/14px;
 }
 @function mat-typography-level-with-base($a, $b, $c, $base) {
-  @return mat-typography-level(mul-with-14($a, $base), mul-with-14($b, $base),  $c);
+  @return mat-typography-level(
+    mul-with-14($a, $base),
+    mul-with-14($b, $base),
+    $c
+  );
 }
 
 @function mat-typography-config-with-base($base) {
@@ -94,21 +100,21 @@ $font-family-wiki: 'Open Sans', 'Roboto', 'Helvetica Neue', 'sans-serif';
   $s48: mul-with-14(48px, $base);
   $s45: mul-with-14(45px, $base);
   @return mat-typography-config(
-    $font-family:   $font-family-wiki,
-    $display-4:     mat-typography-level($s112, $s112, 300, $letter-spacing: -0.05em),
-    $display-3:     mat-typography-level($s56, $s56, 400, $letter-spacing: -0.02em),
-    $display-2:     mat-typography-level($s45, $s48, 400, $letter-spacing: -0.005em),
-    $display-1:     mat-typography-level-with-base(34px, 40px, 400, $base),
-    $headline:      mat-typography-level-with-base(24px, 32px, 400, $base),
-    $title:         mat-typography-level-with-base(20px, 32px, 500, $base),
-    $subheading-2:  mat-typography-level-with-base(16px, 28px, 400, $base),
-    $subheading-1:  mat-typography-level-with-base(15px, 24px, 400, $base),
-    $body-2:        mat-typography-level-with-base(14px, 24px, 500, $base),
-    $body-1:        mat-typography-level-with-base(14px, 20px, 400, $base),
-    $caption:       mat-typography-level-with-base(12px, 20px, 400, $base),
-    $button:        mat-typography-level-with-base(14px, 14px, 500, $base),
-    // Line-height must be unit-less fraction of the font-size.
-    $input:         mat-typography-level(inherit, 1.125, 400)
+    $font-family: $font-family-wiki,
+    $display-4:
+      mat-typography-level($s112, $s112, 300, $letter-spacing: -0.05em),
+    $display-3: mat-typography-level($s56, $s56, 400, $letter-spacing: -0.02em),
+    $display-2: mat-typography-level($s45, $s48, 400, $letter-spacing: -0.005em),
+    $display-1: mat-typography-level-with-base(34px, 42px, 400, $base),
+    $headline: mat-typography-level-with-base(24px, 38px, 400, $base),
+    $title: mat-typography-level-with-base(20px, 35px, 500, $base),
+    $subheading-2: mat-typography-level-with-base(16px, 32px, 400, $base),
+    $subheading-1: mat-typography-level-with-base(15px, 30px, 400, $base),
+    $body-2: mat-typography-level-with-base(14px, 28px, 500, $base),
+    $body-1: mat-typography-level-with-base(14px, 24px, 400, $base),
+    $caption: mat-typography-level-with-base(12px, 20px, 400, $base),
+    $button: mat-typography-level-with-base(14px, 14px, 500, $base),
+    // Line-height must be unit-less fraction of the font-size. $input: mat-typography-level(inherit, 1.125, 400)
   );
 }
 
@@ -117,7 +123,7 @@ $font-family-wiki: 'Open Sans', 'Roboto', 'Helvetica Neue', 'sans-serif';
   @include angular-material-typography($typography);
 }
 .font-s {
-  $typography: mat-typography-config-with-base(12px);;
+  $typography: mat-typography-config-with-base(12px);
   @include angular-material-typography($typography);
 }
 .font-n {
@@ -125,7 +131,7 @@ $font-family-wiki: 'Open Sans', 'Roboto', 'Helvetica Neue', 'sans-serif';
   @include angular-material-typography($typography);
 }
 .font-l {
-  $typography: mat-typography-config-with-base(16px);;
+  $typography: mat-typography-config-with-base(16px);
   @include angular-material-typography($typography);
 }
 .font-xl {
@@ -134,12 +140,22 @@ $font-family-wiki: 'Open Sans', 'Roboto', 'Helvetica Neue', 'sans-serif';
 }
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: $font-family-wiki; }
-
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: $font-family-wiki;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+.spacer {
+  flex: 1 1 auto;
+}
 
 // Content Direction Changes
-[dir=rtl] .adjust-on-dir {
+[dir="rtl"] .adjust-on-dir {
   display: flex;
   align-items: center;
   flex-direction: row-reverse;

@@ -27,7 +27,8 @@ export class PreferenceService {
   }
   init(prefOptions: IPreferenceOptions, activePref?: IActivePreference, sync: boolean = true) {
     this.prefOptions = prefOptions;
-    this.updatePref(activePref, sync);
+
+    this.updatePref(activePref || this.defaultActivePref, sync);
   }
   updatePref(partialPref: Partial<IActivePreference> = this.defaultActivePref, sync = true) {
     if (!this.prefOptions) { return; }
@@ -59,6 +60,7 @@ export class PreferenceService {
         ...partialPref
       };
       if (sync) {
+        console.log('pref updated');
         this.sync.set(this.activePref);
       }
     }

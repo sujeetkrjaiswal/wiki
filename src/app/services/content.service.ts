@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { first, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { of, Observable } from 'rxjs';
 
@@ -28,7 +27,6 @@ const WIKI_BASE = 'https://en.wikipedia.org/wiki/';
 })
 export class ContentService {
   constructor(
-    private store: AngularFirestore,
     private http: HttpClient
   ) {
   }

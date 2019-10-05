@@ -1,15 +1,25 @@
-<mat-toolbar>
+<mat-toolbar class="toolbar">
   <button mat-icon-button (click)="tocOpened = !tocOpened">
     <mat-icon>menu</mat-icon>
   </button>
-  {{title}}
+  {{ title }}
+  <span class="spacer"></span>
+  <a *ngIf="wikipediaUrl" mat-icon-button [href]="wikipediaUrl" target="_blank">
+    <mat-icon>open_in_new</mat-icon>
+  </a>
 </mat-toolbar>
 
 <mat-sidenav-container class="__content_renderer__">
-  <mat-sidenav mode="side" [(opened)]="tocOpened">
+  <mat-sidenav mode="over" [(opened)]="tocOpened">
     <section #tocPlaceholder class="toc-placeholder"></section>
   </mat-sidenav>
   <mat-sidenav-content>
     <section #htmlPlaceholder class="html-placeholder"></section>
+    <br />
+    <div *ngIf="error">
+      Unable to fetch content for requested page. Please check the url once or
+      search from home page.
+    </div>
+    <wiki-comment [docId]="wikipediaUrl" *ngIf="wikipediaUrl"></wiki-comment>
   </mat-sidenav-content>
 </mat-sidenav-container>

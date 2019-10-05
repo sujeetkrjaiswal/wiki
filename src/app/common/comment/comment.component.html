@@ -1,0 +1,22 @@
+<h2>
+  Responses
+</h2>
+<mat-form-field *ngIf="user">
+  <span matPrefix>
+    <mat-icon *ngIf="!user.photoURL">account_circle</mat-icon>
+    <img *ngIf="user.photoURL" [src]="user.photoURL" [alt]="user.displayName" />
+  </span>
+  <textarea
+    matInput
+    [matTextareaAutosize]="true"
+    placeholder="Leave a response"
+  ></textarea>
+</mat-form-field>
+
+<a
+  *ngIf="!user"
+  routerLink="/login"
+  [queryParams]="{ redirectUrl: redirectUrl }"
+>
+  Login to Add responses
+</a>

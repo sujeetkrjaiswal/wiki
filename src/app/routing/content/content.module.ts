@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ContentComponent } from './content.component';
 import { MatToolbarModule, MatSidenavModule } from '@angular/material';
 import { NgMaterialModule } from 'src/app/common/ng-material.module';
+import { CommentModule } from 'src/app/common/comment/comment.module';
 @NgModule({
   declarations: [ContentComponent],
   exports: [ContentComponent],
@@ -11,7 +12,8 @@ import { NgMaterialModule } from 'src/app/common/ng-material.module';
     CommonModule,
     NgMaterialModule,
     MatToolbarModule,
-    MatSidenavModule
+    MatSidenavModule,
+    CommentModule
   ]
 })
 export class ContentModule { }

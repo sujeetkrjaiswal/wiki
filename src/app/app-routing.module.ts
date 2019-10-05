@@ -23,11 +23,11 @@ import { ContentResolver } from './routing/content/content.resolver';
 const routes: Routes = [{
   path: '',
   pathMatch: 'full',
+  component: HomeComponent,
+}, {
+  path: 'login',
   component: LoginComponent,
   canActivate: [LoginGuard],
-}, {
-  path: 'home',
-  component: HomeComponent
 }, {
   path: 'wiki/:wikiId',
   component: ContentComponent,
