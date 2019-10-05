@@ -21,7 +21,7 @@
   $primaryText: mat-color($primary, text);
   $secondaryText: mat-color($foreground, secondary-text);
 
-  .__content_renderer__ {
+  .__content_renderer__ .html-placeholder {
     h1,
     h2,
     h3,

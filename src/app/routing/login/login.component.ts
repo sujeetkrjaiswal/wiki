@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       filter(user => !!user)
     ).subscribe(user => {
       console.log('logi user', user);
-      this.route.navigateByUrl('/home');
+      this.route.navigateByUrl('/');
     });
   }
   ngOnDestroy() {

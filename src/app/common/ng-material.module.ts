@@ -6,6 +6,10 @@ import {
   MatToolbarModule,
   MatMenuModule,
   MatInputModule,
+  MatListModule,
+  MatFormFieldModule,
+  MatAutocompleteModule,
+  MatCardModule,
 } from '@angular/material';
 
 
@@ -18,13 +22,13 @@ import {
     MatToolbarModule,
     MatMenuModule,
     MatInputModule,
+    MatListModule,
+    MatFormFieldModule,
+    MatAutocompleteModule,
+    MatCardModule,
   ],
   imports: [
-    CommonModule,
-    MatButtonModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatMenuModule,
+    CommonModule
   ]
 })
 export class NgMaterialModule { }

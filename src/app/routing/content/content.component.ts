@@ -8,10 +8,12 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { IContent } from 'src/app/services/content.service';
-import { Subscription } from 'rxjs';
+import { IContent, ISearchResponse, ContentService } from 'src/app/services/content.service';
+import { Subscription, Observable } from 'rxjs';
 import { parseContent } from './content.processing.util';
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, startWith, switchMap } from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
+import { MatAutocompleteSelectedEvent } from '@angular/material';
 
 @Component({
   selector: 'wiki-content',
@@ -31,9 +33,17 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewInit {
   html = '';
   wikipediaUrl = '';
   error: any = null;
+
+  searchControl = new FormControl();
+  articles$: Observable<ISearchResponse[]>;
+
   private dataSub: Subscription | null = null;
   private paramSub: Subscription | null = null;
-  constructor(private router: Router, private activateRoute: ActivatedRoute) {}
+  constructor(
+    private router: Router,
+    private activateRoute: ActivatedRoute,
+    private contentSvc: ContentService
+    ) {}
 
   ngOnInit() {
     this.paramSub = this.activateRoute.paramMap.subscribe(pm => {
@@ -53,6 +63,12 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewInit {
         }
         this.error = error || null;
       });
+
+    this.articles$ = this.searchControl.valueChanges.pipe(
+        startWith(''),
+        debounceTime(250),
+        switchMap(query => this.contentSvc.openSearch(query))
+      );
   }
   ngAfterViewInit() {}
 
@@ -63,5 +79,8 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.paramSub) {
       this.paramSub.unsubscribe();
     }
+  }
+  select(event: MatAutocompleteSelectedEvent) {
+    this.router.navigateByUrl(`/wiki/${this.contentSvc.getID(event.option.value)}`);
   }
 }

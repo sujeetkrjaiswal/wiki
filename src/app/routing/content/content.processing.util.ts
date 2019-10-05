@@ -16,7 +16,6 @@ export function parseContent(html: string): [HTMLElement, HTMLElement] {
   $(sectionElem).find('a[href^="#"]').attr('href', (i, href) => `${path}${href}`);
 
   const tocElem = $(sectionElem).find('#toc').detach()[0];
-  console.log(tocElem, sectionElem);
 
   return [tocElem, sectionElem];
 }

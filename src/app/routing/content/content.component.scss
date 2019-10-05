@@ -6,16 +6,11 @@ wiki-content {
   top: 0;
   z-index: 10;
 }
+.wiki-autocomplete {
+  font-size: 1rem;
+}
 
 .__content_renderer__ {
-  %onside {
-    border-width: 1px;
-    padding: 8px;
-    border-style: dotted;
-    margin-top: 4px;
-    margin-bottom: 16px;
-  }
-  text-align: justify;
   .toc-placeholder {
     width: 300px;
     padding: 16px;
@@ -33,127 +28,146 @@ wiki-content {
     }
   }
   .html-placeholder {
-    padding: 16px;
-  }
-
-  h1,
-  h2 {
-    margin-top: 16px;
-  }
-  .mw-editsection,
-  .reference,
-  .navbox,
-  .noprint,
-  .reflist,
-  #References,
-  #External_links {
-    display: none;
-  }
-
-  .div-col {
-    margin-bottom: 24px;
-  }
-
-  a {
-    text-decoration: none;
-  }
-
-  .hlist {
-    dd,
-    dt,
-    li {
-      margin: 0;
-      display: inline;
-    }
-  }
-  .navbar {
-    display: inline;
-    font-size: 88%;
-    font-weight: normal;
-    li {
-      word-spacing: -0.125em;
-    }
-  }
-
-  .vertical-navbox {
-    background: inherit !important;
-  }
-
-  .gallery {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-
-    margin: 2px;
-    padding: 2px;
-    list-style-type: none;
-
-    .gallerybox {
-      display: inline-block;
+    %onside {
+      border-width: 1px;
       padding: 8px;
-      margin: 8px;
-      border: 1px dotted;
-      .thumb {
-        text-align: center;
+      border-style: dotted;
+      margin-top: 4px;
+      margin-bottom: 16px;
+    }
+    text-align: justify;
+    padding: 16px;
+
+    h1,
+    h2 {
+      margin-top: 16px;
+    }
+    .mw-editsection,
+    .reference,
+    .navbox,
+    .noprint,
+    .reflist,
+    #References,
+    #External_links {
+      display: none;
+    }
+
+    .div-col {
+      margin-bottom: 24px;
+    }
+
+    a {
+      text-decoration: none;
+    }
+    img {
+      max-width: 100%;
+      object-fit: contain;
+    }
+    .hlist {
+      dd,
+      dt,
+      li {
+        margin: 0;
+        display: inline;
       }
     }
-  }
-  .infobox.vevent,
-  .tright,
-  .tleft,
-  .floatleft,
-  .floatright {
-    @extend %onside;
-  }
-  @media screen and (max-width: 425px) {
-    .thumb,
-    .infobox,
-    .vertical-navbox {
-      width: 100% !important;
-      float: none !important;
-      box-sizing: border-box !important;
-      margin: 1rem 0px !important;
+    .navbar {
+      display: inline;
+      font-size: 88%;
+      font-weight: normal;
+      li {
+        word-spacing: -0.125em;
+      }
     }
 
-    .thumbinner {
-      width: 100% !important;
-      .image {
-        text-align: center;
-        width: 100%;
+    .vertical-navbox {
+      background: inherit !important;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+
+      margin: 2px;
+      padding: 2px;
+      list-style-type: none;
+
+      .gallerybox {
         display: inline-block;
-        .thumbimage {
-          object-fit: contain;
-          max-width: 100%;
+        padding: 8px;
+        margin: 8px;
+        border: 1px dotted;
+        .thumb {
+          text-align: center;
         }
       }
     }
-    .quotebox,
-    .pullquote {
-      width: 100% !important;
-      box-sizing: border-box !important;
-      margin: 1rem 0 !important;
-    }
-  }
-  @media screen and (min-width: 426px) {
-    .infobox.vevent {
-      float: right;
-      clear: right;
-      margin-left: 24px;
-      margin-right: 0px;
-    }
+    .infobox.vevent,
     .tright,
-    .floatright {
-      float: right;
-      clear: right;
-      margin-left: 24px;
-      margin-right: 0px;
-    }
     .tleft,
-    .floatleft {
-      float: left;
-      clear: left;
-      margin-left: 0px;
-      margin-right: 24px;
+    .floatleft,
+    .floatright {
+      @extend %onside;
+    }
+    @media screen and (max-width: 425px) {
+      .thumb,
+      .infobox,
+      .vertical-navbox {
+        width: 100% !important;
+        float: none !important;
+        box-sizing: border-box !important;
+        margin: 1rem 0px !important;
+      }
+
+      .thumbinner {
+        width: 100% !important;
+        .image {
+          text-align: center;
+          width: 100%;
+          display: inline-block;
+          .thumbimage {
+            object-fit: contain;
+            max-width: 100%;
+          }
+        }
+      }
+      .quotebox,
+      .pullquote {
+        width: 100% !important;
+        box-sizing: border-box !important;
+        margin: 1rem 0 !important;
+      }
+    }
+    @media screen and (min-width: 426px) {
+      .infobox.vevent {
+        float: right;
+        clear: right;
+        margin-left: 24px;
+        margin-right: 0px;
+      }
+      .tright,
+      .floatright {
+        float: right;
+        clear: right;
+        margin-left: 24px;
+        margin-right: 0px;
+      }
+      .tleft,
+      .floatleft {
+        float: left;
+        clear: left;
+        margin-left: 0px;
+        margin-right: 24px;
+      }
     }
   }
+}
+
+wiki-comment {
+  display: block;
+  width: 90%;
+  max-width: 700px;
+  clear: both;
+  margin: 48px auto;
 }

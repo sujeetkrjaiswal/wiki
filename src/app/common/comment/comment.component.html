@@ -1,22 +1,136 @@
 <h2>
   Responses
 </h2>
-<mat-form-field *ngIf="user">
-  <span matPrefix>
-    <mat-icon *ngIf="!user.photoURL">account_circle</mat-icon>
-    <img *ngIf="user.photoURL" [src]="user.photoURL" [alt]="user.displayName" />
-  </span>
-  <textarea
-    matInput
-    [matTextareaAutosize]="true"
-    placeholder="Leave a response"
-  ></textarea>
-</mat-form-field>
+<!--Add Responses: When user is logged In -->
+<div class="add-response" *ngIf="user">
+  <mat-form-field class="add-response-form">
+    <span matPrefix>
+      <mat-icon *ngIf="!user.photoURL" class="reply-user-icon"
+        >account_circle</mat-icon
+      >
+      <img
+        *ngIf="user.photoURL"
+        [src]="user.photoURL"
+        [alt]="user.displayName"
+        class="reply-user-icon"
+      />
+    </span>
+    <textarea
+      matInput
+      matAutosizeMinRows="3"
+      [matTextareaAutosize]="true"
+      placeholder="Leave a response"
+      [(ngModel)]="comment"
+    ></textarea>
+    <mat-hint>Comments should be 10-2000 characters</mat-hint>
+  </mat-form-field>
+  <button
+    mat-stroked-button
+    color="primary"
+    (click)="saveResponse()"
+    [disabled]="comment.length < 10 || comment.length > 2000"
+  >
+    Save Response
+  </button>
+</div>
+<!-- When the user is not logged In -->
+<mat-toolbar *ngIf="!user" class="justify-center">
+  <a
+    mat-button
+    routerLink="/login"
+    [queryParams]="{ redirectUrl: redirectUrl }"
+  >
+    Login to Add responses
+  </a>
+</mat-toolbar>
+<!-- For No Responses -->
+<mat-toolbar *ngIf="comments?.length === 0" class="justify-center">
+  No responses.
+</mat-toolbar>
 
-<a
-  *ngIf="!user"
-  routerLink="/login"
-  [queryParams]="{ redirectUrl: redirectUrl }"
->
-  Login to Add responses
-</a>
+<!-- Current responses -->
+<div class="comments-container">
+  <div *ngFor="let comment of comments; last as isLastComment" class="comment">
+    <div class="comment-info">
+      <img
+        *ngIf="comment.commentorPhoto"
+        [src]="comment.commentorPhoto"
+        class="reply-user-icon"
+      />
+      <mat-icon *ngIf="!comment.commentorPhoto" class="reply-user-icon"
+        >account_circle</mat-icon
+      >
+      <div>
+        <h4 class="user-name">{{ comment.commentorName }}</h4>
+        <span class="mat-caption">{{ comment.commentedOn | date }}</span>
+      </div>
+    </div>
+    <div class="comment-text">{{ comment.comment }}</div>
+    <div class="comment-action-button">
+      <button
+        mat-button
+        color="primary"
+        (click)="updateLike(comment.id)"
+        [disabled]="!user"
+      >
+        {{ comment.likes || 0 }}
+        <mat-icon>favorite</mat-icon>
+      </button>
+      <button
+        (click)="comment.showReply = !comment.showReply"
+        mat-button
+        color="primary"
+      >
+        {{ comment.showReply ? "Hide" : "Show" }}
+        {{ comment?.replies?.length }} Reply
+      </button>
+    </div>
+    <!-- Replies -->
+    <div class="comment-replies-container" *ngIf="comment.showReply">
+      <div class="add-comment-reply" *ngIf="user">
+        <input matInput placeholder="Your Reply" autocomplete="off" #reply />
+        <button
+          mat-icon-button
+          color="primary"
+          (click)="saveReply(reply, comment.id)"
+          [disabled]="reply?.value?.length < 10 || reply?.value?.length > 2000"
+        >
+          <mat-icon>send</mat-icon>
+        </button>
+      </div>
+      <div
+        class="comment-reply comment"
+        *ngFor="let reply of comment.replies; last as isLastReply"
+      >
+        <div class="comment-info">
+          <img
+            *ngIf="reply.commentorPhoto"
+            [src]="reply.commentorPhoto"
+            class="reply-user-icon"
+          />
+          <mat-icon *ngIf="!reply.commentorPhoto" class="reply-user-icon"
+            >account_circle</mat-icon
+          >
+          <div>
+            <h4 class="user-name">{{ reply.commentorName }}</h4>
+            <span class="mat-caption">{{ reply.commentedOn | date }}</span>
+          </div>
+        </div>
+        <div class="comment-text">{{ reply.comment }}</div>
+        <div class="comment-action-button">
+          <button
+            mat-button
+            (click)="updateLike(reply.id)"
+            [disabled]="!user"
+            color="primary"
+          >
+            {{ comment.likes || 0 }}
+            <mat-icon>favorite</mat-icon>
+          </button>
+        </div>
+        <mat-divider *ngIf="!isLastReply"></mat-divider>
+      </div>
+    </div>
+    <mat-divider *ngIf="!isLastComment"></mat-divider>
+  </div>
+</div>

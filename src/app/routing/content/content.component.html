@@ -3,10 +3,32 @@
     <mat-icon>menu</mat-icon>
   </button>
   {{ title }}
-  <span class="spacer"></span>
   <a *ngIf="wikipediaUrl" mat-icon-button [href]="wikipediaUrl" target="_blank">
     <mat-icon>open_in_new</mat-icon>
   </a>
+  <span class="spacer"></span>
+  <form class="wiki-autocomplete">
+    <mat-form-field class="wiki-autocomplete-field">
+      <input
+        matInput
+        placeholder="Search any topic"
+        aria-label="Search any topic"
+        [matAutocomplete]="auto"
+        [formControl]="searchControl"
+      />
+      <mat-autocomplete
+        #auto="matAutocomplete"
+        (optionSelected)="select($event)"
+      >
+        <mat-option
+          *ngFor="let article of articles$ | async"
+          [value]="article?.url"
+        >
+          {{ article?.title }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
 </mat-toolbar>
 
 <mat-sidenav-container class="__content_renderer__">

@@ -1,13 +1,18 @@
 <form class="wiki-autocomplete">
   <mat-form-field class="wiki-autocomplete-field">
-    <input matInput placeholder="Search any topic" aria-label="Search any topic" [matAutocomplete]="auto"
-      [formControl]="searchControl">
+    <input
+      matInput
+      placeholder="Search any topic"
+      aria-label="Search any topic"
+      [matAutocomplete]="auto"
+      [formControl]="searchControl"
+    />
     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="select($event)">
-      <mat-option *ngFor="let article of articles$ | async" [value]="article?.url">
-        <div>
-          <h4>{{article?.title}}</h4>
-          <p>{{article?.description}}</p>
-        </div>
+      <mat-option
+        *ngFor="let article of articles$ | async"
+        [value]="article?.url"
+      >
+        {{ article?.title }}
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
@@ -15,11 +20,14 @@
 
 <h2>Featured Articles</h2>
 <div>
-  <a *ngFor="let article of featuredArticles" [routerLink]="article.url" class="featured-card">
+  <a
+    *ngFor="let article of featuredArticles"
+    [routerLink]="article.url"
+    class="featured-card"
+  >
     <mat-card>
-      <h3>{{article.title}}</h3>
-      <p>{{article.description}}</p>
+      <h3>{{ article.title }}</h3>
+      <p>{{ article.description }}</p>
     </mat-card>
   </a>
-
 </div>

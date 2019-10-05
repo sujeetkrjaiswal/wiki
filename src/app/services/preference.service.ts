@@ -11,6 +11,7 @@ export class PreferenceService {
   private activePref: IActivePreference;
   private prefOptions: IPreferenceOptions;
   private elem = document.querySelector('html');
+  private themeBarelem = document.querySelector('#theme-elem');
   constructor(
     private sync: PreferenceSyncService,
   ) {
@@ -70,6 +71,7 @@ export class PreferenceService {
   private updateTheme(theme: ITheme) {
     this.elem.classList.remove(...this.prefOptions.themes.map(u => u.themeClass));
     this.elem.classList.add(theme.themeClass);
+    this.themeBarelem.setAttribute('content', theme.color.primary);
   }
   private updateFont(font: IFont) {
     this.elem.classList.remove(...this.prefOptions.fonts.map(u => u.fontClass));

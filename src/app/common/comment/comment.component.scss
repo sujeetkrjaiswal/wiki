@@ -1,0 +1,77 @@
+// Utility
+@mixin reply-user-icon($mr, $size) {
+  margin-right: $mr !important;
+  width: $size !important;
+  height: $size !important;
+  font-size: $size !important;
+}
+@mixin comment-item-space-adjustment($imgSize, $pad) {
+  $netPad: $pad + $imgSize;
+  .reply-user-icon {
+    @include reply-user-icon($pad, $imgSize);
+  }
+  .comment-text {
+    padding-left: $netPad;
+  }
+  .comment-replies-container {
+    padding-left: $netPad;
+    .reply-user-icon {
+      @include reply-user-icon($pad * 0.8, $imgSize * 0.8);
+    }
+    .comment-text {
+      padding-left: $netPad;
+    }
+  }
+}
+
+// Styles
+.justify-center {
+  justify-content: center;
+}
+.mat-divider {
+  display: block;
+  margin: 8px 0;
+}
+.add-response {
+  text-align: right;
+  .add-response-form {
+    width: 100%;
+  }
+}
+
+.comments-container {
+  .comment {
+    margin: 8px 0px 16px;
+    .comment-info {
+      display: flex;
+      align-items: center;
+      .user-name {
+        margin-bottom: 0px !important;
+      }
+    }
+    .comment-text {
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+  }
+}
+.comment-action-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 0;
+}
+.add-comment-reply {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border: 1px solid grey;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+@media screen and (max-width: 425px) {
+  @include comment-item-space-adjustment(32px, 8px);
+}
+@media screen and (min-width: 426px) {
+  @include comment-item-space-adjustment(48px, 12px);
+}
