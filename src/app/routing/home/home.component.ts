@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ContentService, ISearchResponse } from 'src/app/services/content.service';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { startWith, switchMap, debounceTime } from 'rxjs/operators';
+import { startWith, switchMap, debounceTime, map } from 'rxjs/operators';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
 import { Router } from '@angular/router';
 
@@ -40,12 +40,13 @@ export class HomeComponent implements OnInit {
     this.articles$ = this.searchControl.valueChanges.pipe(
       startWith(''),
       debounceTime(250),
-      switchMap(query => this.contentSvc.openSearch(query))
+      switchMap(query => this.contentSvc.openSearch(query)),
+      map(result => result.map(u => ({ ...u, url: this.contentSvc.getID(u.url) })))
     );
   }
 
   select(event: MatAutocompleteSelectedEvent) {
-    this.router.navigate(['wiki', this.contentSvc.getID(event.option.value)]);
+    this.router.navigate(['wiki', event.option.value]);
   }
 
 }

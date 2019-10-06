@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
 import { CommentsService, IComment } from 'src/app/services/comments.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Subscription } from 'rxjs';
@@ -12,7 +12,7 @@ interface ICommentWithUI extends IComment {
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.scss']
 })
-export class CommentComponent implements OnInit, OnDestroy {
+export class CommentComponent implements OnInit, OnChanges, OnDestroy {
   @Input() docId: string;
   user: firebase.User | null = null;
   comment = '';
@@ -28,15 +28,25 @@ export class CommentComponent implements OnInit, OnDestroy {
     this.authSubscription = this.authSvc.user.subscribe(user => {
       this.user = user;
     });
-    this.commentSvc.getComment(this.docId).subscribe(comments => {
-      const showingReply = new Set(this.comments.filter(u => u.showReply).map(u => u.id));
-      this.comments = comments.map(u => ({...u, showReply: showingReply.has(u.id)}));
-    });
+
   }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if ('docId' in changes) {
+      this.comments = [];
+      this.comment = '';
+      this.redirectUrl = location.pathname;
+      this.commentSvc.getComment(this.docId).subscribe(comments => {
+        const showingReply = new Set(this.comments.filter(u => u.showReply).map(u => u.id));
+        this.comments = comments.map(u => ({ ...u, showReply: showingReply.has(u.id) }));
+      });
+    }
+  }
+
 
   ngOnDestroy() {
     if (this.authSubscription) {
-    this.authSubscription.unsubscribe();
+      this.authSubscription.unsubscribe();
     }
   }
 

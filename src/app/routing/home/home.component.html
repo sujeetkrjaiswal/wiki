@@ -1,3 +1,6 @@
+<div class="logo-container">
+  <img src="assets/pwa-icons/ms-icon-310x310.png" class="logo" />
+</div>
 <form class="wiki-autocomplete">
   <mat-form-field class="wiki-autocomplete-field">
     <input
@@ -7,6 +10,7 @@
       [matAutocomplete]="auto"
       [formControl]="searchControl"
     />
+    <mat-icon matSuffix>search</mat-icon>
     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="select($event)">
       <mat-option
         *ngFor="let article of articles$ | async"
@@ -18,7 +22,7 @@
   </mat-form-field>
 </form>
 
-<h2>Featured Articles</h2>
+<h2 class="featured-heading">Featured Articles</h2>
 <div>
   <a
     *ngFor="let article of featuredArticles"

@@ -11,7 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { IContent, ISearchResponse, ContentService } from 'src/app/services/content.service';
 import { Subscription, Observable } from 'rxjs';
 import { parseContent } from './content.processing.util';
-import { debounceTime, startWith, switchMap } from 'rxjs/operators';
+import { debounceTime, startWith, switchMap, map } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
 
@@ -43,7 +43,7 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewInit {
     private router: Router,
     private activateRoute: ActivatedRoute,
     private contentSvc: ContentService
-    ) {}
+  ) { }
 
   ngOnInit() {
     this.paramSub = this.activateRoute.paramMap.subscribe(pm => {
@@ -51,7 +51,7 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewInit {
     });
     this.dataSub = this.activateRoute.data
       .pipe(debounceTime(100))
-      .subscribe(({ content: {data: content, error} }: { content: {data: IContent, error: any} }) => {
+      .subscribe(({ content: { data: content, error } }: { content: { data: IContent, error: any } }) => {
         if (content) {
           this.title = content.title;
           this.html = content.text;
@@ -65,12 +65,13 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewInit {
       });
 
     this.articles$ = this.searchControl.valueChanges.pipe(
-        startWith(''),
-        debounceTime(250),
-        switchMap(query => this.contentSvc.openSearch(query))
-      );
+      startWith(''),
+      debounceTime(250),
+      switchMap(query => this.contentSvc.openSearch(query)),
+      map(result => result.map(u => ({ ...u, url: this.contentSvc.getID(u.url) })))
+    );
   }
-  ngAfterViewInit() {}
+  ngAfterViewInit() { }
 
   ngOnDestroy() {
     if (this.dataSub) {
@@ -81,6 +82,6 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
   select(event: MatAutocompleteSelectedEvent) {
-    this.router.navigateByUrl(`/wiki/${this.contentSvc.getID(event.option.value)}`);
+    this.router.navigateByUrl(`/wiki/${event.option.value}`);
   }
 }

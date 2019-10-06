@@ -1,6 +1,4 @@
 .wiki-autocomplete {
-  margin-top: 25vh;
-  margin-bottom: 10vh;
   text-align: center;
   .wiki-autocomplete-field {
     max-width: 90%;
@@ -8,9 +6,19 @@
     width: 600px;
   }
 }
-
+.featured-heading {
+  padding: 16px 16px 0;
+}
 .featured-card {
   margin: 16px;
   text-decoration: none;
   display: block;
+}
+.logo-container {
+  text-align: center;
+}
+.logo {
+  max-width: 100%;
+  padding: 16px;
+  box-sizing: border-box;
 }
