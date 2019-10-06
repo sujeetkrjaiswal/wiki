@@ -31,7 +31,7 @@ service cloud.firestore {
 
       allow read;
       allow create: if isAuthenticated() && validComment();
-      allow update: if isAuthenticated() && validComment();
+      allow update: if isAuthenticated();
       allow delete: if isYourComment()
     }
     match /{document=**} {
