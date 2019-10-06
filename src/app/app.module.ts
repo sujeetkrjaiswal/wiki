@@ -10,6 +10,8 @@ import { InitService } from './services/init.service';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { NgMaterialModule } from './common/ng-material.module';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -24,7 +26,8 @@ import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
     AppRoutingModule,
     BrowserAnimationsModule,
     CoreModule,
-    NgMaterialModule
+    NgMaterialModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [{
     provide: APP_INITIALIZER,
